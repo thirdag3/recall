@@ -1,0 +1,29 @@
+---
+AlignAfterOpenBracket: DontAlign
+AlignArrayOfStructures: Right
+AlignOperands: DontAlign
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AlwaysBreakTemplateDeclarations: 'Yes'
+BasedOnStyle: LLVM
+BinPackArguments: false
+BinPackParameters: false
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: MultiLine
+  AfterEnum: true
+  AfterExternBlock: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterObjCDeclaration: true
+  AfterStruct: true
+  BeforeCatch: true
+  BeforeElse: true
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeBraces: Custom
+ConstructorInitializerIndentWidth: 0
+IndentWidth: 4
+ContinuationIndentWidth: 4
+PackConstructorInitializers: CurrentLine
+PointerAlignment: Left
