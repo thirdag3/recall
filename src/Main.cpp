@@ -1,6 +1,7 @@
 #include <Window.hpp>
 
 #include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
 #include <memory>
 #include <vector>
 
@@ -8,6 +9,7 @@
 #include "BufferLayout.hpp"
 #include "VertexBuffer.hpp"
 #include "IndexBuffer.hpp"
+#include "UniformBuffer.hpp"
 #include "VertexArray.hpp"
 #include "Renderer.hpp"
 
@@ -50,15 +52,23 @@ int main(int argc, const char** argv)
     vao.AddVertexBuffer(vbo);
     vao.SetIndexBuffer(std::move(ebo));
 
+    UniformBuffer ubo(128, 0);
+
     Shader s("Assets/Shaders/Basic.vert", "Assets/Shaders/Basic.frag");
     s.Bind();
 
     Renderer r;
 
+    glm::mat4 transformation(1.0f);
+    transformation =
+        glm::rotate(transformation, glm::radians(180.0f), glm::vec3(1, 0, 0));
+
+    s.SetUniform("model", transformation);
+
     vao.Bind();
     while (!w.ShouldClose()) {
         r.Clear({0.39f, 0.58f, 0.92f, 1.0f});
-        r.Draw(vao, triangle.size());
+        r.DrawIndexed(vao);
         w.Update();
     }
 }
