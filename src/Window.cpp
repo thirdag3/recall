@@ -1,7 +1,20 @@
 #include <Window.hpp>
 
+#include <iostream>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+void APIENTRY DebugOutputCallback(GLenum source,
+    GLenum type,
+    GLuint id,
+    GLenum severity,
+    GLsizei length,
+    const GLchar* message,
+    const void* userParam)
+{
+    std::cout << "[OpenGL]: " << message << std::endl;
+}
 
 Window::Window(int width, int height, const std::string& title)
 : m_width(width),
@@ -12,6 +25,9 @@ Window::Window(int width, int height, const std::string& title)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    // Debug Output
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
     m_window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 
@@ -30,6 +46,9 @@ Window::Window(int width, int height, const std::string& title)
     glViewport(0, 0, width, height);
 
     glfwSetWindowUserPointer(m_window, this);
+
+    glEnable(GL_DEBUG_OUTPUT);
+    glDebugMessageCallback(DebugOutputCallback, nullptr);
 
     glfwSetKeyCallback(m_window,
         [](GLFWwindow* window, int key, int scancode, int action, int mods) {
