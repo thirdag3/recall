@@ -1,4 +1,4 @@
-#include "BufferLayout.h"
+#include "BufferLayout.hpp"
 
 unsigned int BufferLayout::GetStride() const
 {

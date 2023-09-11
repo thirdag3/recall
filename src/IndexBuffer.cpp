@@ -1,4 +1,4 @@
-#include "IndexBuffer.h"
+#include "IndexBuffer.hpp"
 
 IndexBuffer::IndexBuffer(GLuint* indices, GLuint count) : m_count(count)
 {

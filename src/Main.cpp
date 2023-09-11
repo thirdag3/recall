@@ -4,12 +4,12 @@
 #include <memory>
 #include <vector>
 
-#include "Shader.h"
-#include "BufferLayout.h"
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
-#include "VertexArray.h"
-#include "Renderer.h"
+#include "Shader.hpp"
+#include "BufferLayout.hpp"
+#include "VertexBuffer.hpp"
+#include "IndexBuffer.hpp"
+#include "VertexArray.hpp"
+#include "Renderer.hpp"
 
 struct Vertex
 {

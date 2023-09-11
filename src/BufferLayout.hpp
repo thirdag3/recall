@@ -5,7 +5,7 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
-#include "VertexAttribute.h"
+#include "VertexAttribute.hpp"
 
 class BufferLayout
 {

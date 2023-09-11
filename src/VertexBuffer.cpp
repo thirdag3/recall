@@ -1,4 +1,4 @@
-#include "VertexBuffer.h"
+#include "VertexBuffer.hpp"
 
 VertexBuffer::VertexBuffer(float* vertices, size_t size)
 {

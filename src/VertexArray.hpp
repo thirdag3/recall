@@ -4,8 +4,8 @@
 #include <vector>
 #include <glad/glad.h>
 
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
+#include "VertexBuffer.hpp"
+#include "IndexBuffer.hpp"
 
 class VertexArray
 {

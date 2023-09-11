@@ -1,4 +1,4 @@
-#include "UniformBuffer.h"
+#include "UniformBuffer.hpp"
 
 UniformBuffer::UniformBuffer()
 {
