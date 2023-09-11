@@ -5,7 +5,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-class Window
+#include "ICameraContext.hpp"
+
+class Window : public ICameraContext
 {
   public:
     Window(int width, int height, const std::string& title);
@@ -16,8 +18,9 @@ class Window
     void SetTitle(const std::string& title);
     bool ShouldClose() const;
     void Update() const;
-    int GetWidth() const;
-    int GetHeight() const;
+    int GetWidth() const override;
+    int GetHeight() const override;
+    void SetLockCursor(bool shouldLock) const override;
 
   private:
     int m_width;

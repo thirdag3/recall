@@ -4,17 +4,18 @@
 #include <glm/ext/matrix_transform.hpp>
 
 Camera::Camera(float fov,
-    float aspect,
     float zNear,
     float zFar,
-    const glm::vec3& position)
+    const glm::vec3& position,
+    const ICameraContext& cameraContext)
 : m_fov(fov),
-  m_aspect(aspect),
+  m_aspect(static_cast<float>(cameraContext.GetWidth()) / cameraContext.GetHeight()),
   m_zNear(zNear),
   m_zFar(zFar),
-  m_position(position)
+  m_position(position),
+  m_cameraContext(cameraContext)
 {
-    m_projection = glm::perspective(glm::radians(fov), aspect, zNear, zFar);
+    m_projection = glm::perspective(glm::radians(fov), m_aspect, zNear, zFar);
 
     m_up = glm::vec3(0.0f, 1.0f, 0.0f);
     m_right = glm::normalize(glm::cross(m_up, position));
@@ -26,6 +27,8 @@ Camera::Camera(float fov,
     m_viewProjectionMatrix = {};
     m_viewProjectionMatrix.projection = m_projection;
     m_viewProjectionMatrix.view = m_view;
+
+    cameraContext.SetLockCursor(true);
 }
 
 const glm::vec3 Camera::GetForward() const
@@ -62,7 +65,8 @@ void Camera::SetPosition(const glm::vec3& position)
 void Camera::SetAspectRatio(const float aspect)
 {
     m_aspect = aspect;
-    m_projection = glm::perspective(glm::radians(m_fov), aspect, m_zNear, m_zFar);
+    m_projection =
+        glm::perspective(glm::radians(m_fov), aspect, m_zNear, m_zFar);
 }
 
 const ViewProjectionMatrix& Camera::GetViewProjectionMatrix() const

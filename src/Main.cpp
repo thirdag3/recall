@@ -6,13 +6,13 @@
 #include <vector>
 
 #include "BufferLayout.hpp"
+#include "Camera.hpp"
 #include "IndexBuffer.hpp"
 #include "Renderer.hpp"
 #include "Shader.hpp"
 #include "UniformBuffer.hpp"
 #include "VertexArray.hpp"
 #include "VertexBuffer.hpp"
-#include "Camera.hpp"
 
 struct Vertex
 {
@@ -58,7 +58,8 @@ int main(int argc, const char** argv)
     Shader s("Assets/Shaders/Basic.vert", "Assets/Shaders/Basic.frag");
     s.Bind();
 
-    Camera camera(45.0f, 800.0f / 600.0f, 0.1f, 100.f, glm::vec3(0.0f, 0.0f, -3.0f));
+    Camera camera(
+        45.0f, 0.1f, 100.0f, glm::vec3(0.0f, 0.0f, -3.0f), w);
     Renderer r;
 
     auto viewProjectionMatrix = camera.GetViewProjectionMatrix();
@@ -72,7 +73,8 @@ int main(int argc, const char** argv)
     while (!w.ShouldClose()) {
         r.Clear({0.39f, 0.58f, 0.92f, 1.0f});
 
-        transformation = glm::rotate(transformation, 0.03f, glm::vec3(0.0f, 0.2f, 0.0f));
+        transformation =
+            glm::rotate(transformation, 0.03f, glm::vec3(0.0f, 0.2f, 0.0f));
         s.SetUniform("model", transformation);
 
         r.DrawIndexed(vao);

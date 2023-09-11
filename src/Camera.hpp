@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include "ICameraContext.hpp"
+
 struct ViewProjectionMatrix
 {
     glm::mat4 projection;
@@ -12,10 +14,10 @@ class Camera
 {
   public:
     Camera(float fov,
-        float aspect,
         float zNear,
         float zFar,
-        const glm::vec3& position);
+        const glm::vec3& position,
+        const ICameraContext& cameraContext);
     const glm::vec3 GetForward() const;
     const glm::vec3 GetRight() const;
     const glm::mat4& GetProjectionMatrix() const;
@@ -26,6 +28,7 @@ class Camera
     const ViewProjectionMatrix& GetViewProjectionMatrix() const;
 
   private:
+    const ICameraContext& m_cameraContext;
     float m_fov;
     float m_aspect;
     float m_zNear;

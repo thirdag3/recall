@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 void APIENTRY DebugOutputCallback(GLenum source,
     GLenum type,
@@ -64,6 +64,11 @@ Window::Window(int width, int height, const std::string& title)
             }
         });
 
+    glfwSetCursorPosCallback(
+        m_window, [](GLFWwindow* window, double posX, double posY) {
+
+        });
+
     glfwSetFramebufferSizeCallback(
         m_window, [](GLFWwindow* window, int width, int height) {
             const auto& self =
@@ -109,4 +114,14 @@ int Window::GetWidth() const
 int Window::GetHeight() const
 {
     return m_height;
+}
+
+void Window::SetLockCursor(bool shouldLock) const
+{
+    if (shouldLock) {
+        glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
+    else {
+        glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
 }
