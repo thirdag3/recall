@@ -12,6 +12,7 @@
 #include "UniformBuffer.hpp"
 #include "VertexArray.hpp"
 #include "VertexBuffer.hpp"
+#include "Camera.hpp"
 
 struct Vertex
 {
@@ -52,30 +53,20 @@ int main(int argc, const char** argv)
     vao.AddVertexBuffer(vbo);
     vao.SetIndexBuffer(std::move(ebo));
 
-    struct ViewProjectionMatrix
-    {
-        glm::mat4 projection;
-        glm::mat4 view;
-    } viewProjection{};
-
-    UniformBuffer ubo(128, 0);
+    UniformBuffer ubo(sizeof(ViewProjectionMatrix), 0);
 
     Shader s("Assets/Shaders/Basic.vert", "Assets/Shaders/Basic.frag");
     s.Bind();
 
+    Camera camera(45.0f, 800.0f / 600.0f, 0.1f, 100.f, glm::vec3(0.0f, 0.0f, -3.0f));
     Renderer r;
 
+    auto viewProjectionMatrix = camera.GetViewProjectionMatrix();
+    ubo.SetData(reinterpret_cast<void*>(&viewProjectionMatrix),
+        sizeof(viewProjectionMatrix),
+        0);
+
     glm::mat4 transformation(1.0f);
-    
-
-    viewProjection.projection =
-        glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-
-    viewProjection.view =
-        glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f));
-
-    ubo.SetData(
-        reinterpret_cast<void*>(&viewProjection), sizeof(viewProjection), 0);
 
     vao.Bind();
     while (!w.ShouldClose()) {
