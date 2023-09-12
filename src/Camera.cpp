@@ -73,3 +73,8 @@ const ViewProjectionMatrix& Camera::GetViewProjectionMatrix() const
 {
     return m_viewProjectionMatrix;
 }
+
+void Camera::SetLockCursor(bool shouldLock) const
+{
+    m_cameraContext.SetLockCursor(shouldLock);
+}

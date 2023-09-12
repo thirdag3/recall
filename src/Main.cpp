@@ -1,13 +1,18 @@
 #include <Window.hpp>
 
-#include <glm/glm.hpp>
-#include <glm/gtx/transform.hpp>
+#include <iostream>
 #include <memory>
 #include <vector>
 
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
+
 #include "BufferLayout.hpp"
 #include "Camera.hpp"
+#include "EventDispatcher.hpp"
+#include "IEvent.hpp"
 #include "IndexBuffer.hpp"
+#include "MouseMovedEvent.hpp"
 #include "Renderer.hpp"
 #include "Shader.hpp"
 #include "UniformBuffer.hpp"
@@ -34,6 +39,16 @@ std::vector<Vertex> CreateTriangle(float size)
 int main(int argc, const char** argv)
 {
     Window w(800, 600, "RECALL");
+    w.GetEventDispatcher().AddListener([](const IEvent& ev) {
+        if (const MouseMovedEvent* mouseMovedEvent =
+                dynamic_cast<const MouseMovedEvent*>(&ev))
+        {
+            const std::string& name = mouseMovedEvent->GetName();
+            std::cout << "Event: " << name
+                      << " | X: " << mouseMovedEvent->GetX()
+                      << " | Y: " << mouseMovedEvent->GetY() << std::endl;
+        }
+    });
 
     BufferLayout layout;
     layout.PushAttribute<glm::vec3>();
@@ -58,8 +73,7 @@ int main(int argc, const char** argv)
     Shader s("Assets/Shaders/Basic.vert", "Assets/Shaders/Basic.frag");
     s.Bind();
 
-    Camera camera(
-        45.0f, 0.1f, 100.0f, glm::vec3(0.0f, 0.0f, -3.0f), w);
+    Camera camera(45.0f, 0.1f, 100.0f, glm::vec3(0.0f, 0.0f, -3.0f), w);
     Renderer r;
 
     auto viewProjectionMatrix = camera.GetViewProjectionMatrix();
@@ -68,6 +82,8 @@ int main(int argc, const char** argv)
         0);
 
     glm::mat4 transformation(1.0f);
+
+    camera.SetLockCursor(false);
 
     vao.Bind();
     while (!w.ShouldClose()) {

@@ -5,6 +5,8 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
+#include "MouseMovedEvent.hpp"
+
 void APIENTRY DebugOutputCallback(GLenum source,
     GLenum type,
     GLuint id,
@@ -66,7 +68,12 @@ Window::Window(int width, int height, const std::string& title)
 
     glfwSetCursorPosCallback(
         m_window, [](GLFWwindow* window, double posX, double posY) {
+            MouseMovedEvent ev(posX, posY);
+            auto& self =
+                *static_cast<Window*>(glfwGetWindowUserPointer(window));
 
+            auto dispatcher = self.GetEventDispatcher();
+            dispatcher.Dispatch(ev);
         });
 
     glfwSetFramebufferSizeCallback(
@@ -124,4 +131,9 @@ void Window::SetLockCursor(bool shouldLock) const
     else {
         glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
+}
+
+EventDispatcher& Window::GetEventDispatcher()
+{
+    return m_eventDispatcher;
 }

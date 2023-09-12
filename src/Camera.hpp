@@ -26,6 +26,7 @@ class Camera
     void SetPosition(const glm::vec3& position);
     void SetAspectRatio(const float aspect);
     const ViewProjectionMatrix& GetViewProjectionMatrix() const;
+    void SetLockCursor(bool shouldLock) const;
 
   private:
     const ICameraContext& m_cameraContext;
