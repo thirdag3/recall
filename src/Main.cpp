@@ -40,14 +40,17 @@ int main(int argc, const char** argv)
 {
     Window w(800, 600, "RECALL");
     w.GetEventDispatcher().AddListener([](const IEvent& ev) {
+        const std::string& name = ev.GetName();
+        std::cout << "Event: " << name;
+
         if (const MouseMovedEvent* mouseMovedEvent =
                 dynamic_cast<const MouseMovedEvent*>(&ev))
         {
-            const std::string& name = mouseMovedEvent->GetName();
-            std::cout << "Event: " << name
-                      << " | X: " << mouseMovedEvent->GetX()
-                      << " | Y: " << mouseMovedEvent->GetY() << std::endl;
+            std::cout << " | X: " << mouseMovedEvent->GetX()
+                      << " | Y: " << mouseMovedEvent->GetY();
         }
+
+        std::cout << std::endl;
     });
 
     BufferLayout layout;
@@ -73,7 +76,7 @@ int main(int argc, const char** argv)
     Shader s("Assets/Shaders/Basic.vert", "Assets/Shaders/Basic.frag");
     s.Bind();
 
-    Camera camera(45.0f, 0.1f, 100.0f, glm::vec3(0.0f, 0.0f, -3.0f), w);
+    Camera camera(45.0f, 0.1f, 100.0f, glm::vec3(0.0f, 0.0f, 10.0f), w);
     Renderer r;
 
     auto viewProjectionMatrix = camera.GetViewProjectionMatrix();

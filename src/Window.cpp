@@ -6,6 +6,7 @@
 #include <glad/glad.h>
 
 #include "MouseMovedEvent.hpp"
+#include "KeyPressedEvent.hpp"
 
 void APIENTRY DebugOutputCallback(GLenum source,
     GLenum type,
@@ -54,12 +55,17 @@ Window::Window(int width, int height, const std::string& title)
 
     glfwSetKeyCallback(m_window,
         [](GLFWwindow* window, int key, int scancode, int action, int mods) {
-            const auto& self =
-                *static_cast<Window*>(glfwGetWindowUserPointer(window));
+            auto& self = *static_cast<Window*>(glfwGetWindowUserPointer(window));
 
             switch (action) {
             case GLFW_PRESS:
+            {
+                KeyPressedEvent ev(static_cast<KeyCode>(key));
+                auto& dispatcher = self.GetEventDispatcher();
+                dispatcher.Dispatch(ev);
+
                 return;
+            }
 
             case GLFW_REPEAT:
                 return;
@@ -68,11 +74,11 @@ Window::Window(int width, int height, const std::string& title)
 
     glfwSetCursorPosCallback(
         m_window, [](GLFWwindow* window, double posX, double posY) {
-            MouseMovedEvent ev(posX, posY);
             auto& self =
                 *static_cast<Window*>(glfwGetWindowUserPointer(window));
 
-            auto dispatcher = self.GetEventDispatcher();
+            MouseMovedEvent ev(posX, posY);
+            auto& dispatcher = self.GetEventDispatcher();
             dispatcher.Dispatch(ev);
         });
 

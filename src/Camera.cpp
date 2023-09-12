@@ -15,14 +15,13 @@ Camera::Camera(float fov,
   m_position(position),
   m_cameraContext(cameraContext)
 {
-    m_projection = glm::perspective(glm::radians(fov), m_aspect, zNear, zFar);
+    m_projection = glm::perspective(glm::radians(m_fov), m_aspect, m_zNear, m_zFar);
 
     m_up = glm::vec3(0.0f, 1.0f, 0.0f);
-    m_right = glm::normalize(glm::cross(m_up, position));
+    m_right = glm::normalize(glm::cross(m_up, m_position));
     m_forward = glm::vec3(0.0f, 0.0f, -1.0f);
 
-    // m_view = glm::lookAt(position, position + m_forward, m_up);
-    m_view = glm::translate(glm::mat4(1.0f), position);
+    m_view = glm::lookAt(position, position + m_forward, m_up);
 
     m_viewProjectionMatrix = {};
     m_viewProjectionMatrix.projection = m_projection;
