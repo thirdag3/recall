@@ -88,10 +88,10 @@ int main(int argc, const char** argv)
             camera.OnMouseMoved(
                 mouseMovedEvent->GetX(), mouseMovedEvent->GetY());
 
-            auto vp = camera.GetViewProjectionMatrix();
+            auto& vp = camera.GetViewProjectionMatrix();
 
             ubo.SetData(
-                reinterpret_cast<void*>(&vp), sizeof(viewProjectionMatrix), 0);
+                reinterpret_cast<const void*>(&vp), sizeof(viewProjectionMatrix), 0);
         }
 
         std::cout << std::endl;
