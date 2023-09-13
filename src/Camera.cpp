@@ -1,7 +1,5 @@
 #include "Camera.hpp"
 
-#include <iostream>
-
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
@@ -22,10 +20,12 @@ Camera::Camera(float fov,
         glm::perspective(glm::radians(m_fov), m_aspect, m_zNear, m_zFar);
 
     m_up = glm::vec3(0.0f, 1.0f, 0.0f);
-    m_forward = glm::normalize(-m_position);
-    m_right = glm::normalize(glm::cross(m_up, m_forward));
+    m_forward = glm::vec3(0.0f, 0.0f, -1.0f);
 
     m_view = glm::lookAt(m_position, m_position + m_forward, m_up);
+
+    m_right = glm::normalize(glm::cross(m_forward, m_up));
+    m_up = glm::cross(m_right, m_forward);
 
     m_viewProjectionMatrix = {};
     m_viewProjectionMatrix.projection = m_projection;
@@ -84,5 +84,8 @@ void Camera::SetLockCursor(bool shouldLock) const
 
 void Camera::OnMouseMoved(int x, int y)
 {
-    
+    m_position = m_position + (m_forward * 0.035f);
+
+    m_view = glm::lookAt(m_position, m_position + m_forward, m_up);
+    m_viewProjectionMatrix.view = m_view;
 }

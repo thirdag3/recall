@@ -75,7 +75,7 @@ int main(int argc, const char** argv)
 
     camera.SetLockCursor(false);
 
-    w.GetEventDispatcher().AddListener([&camera](const IEvent& ev) {
+    w.GetEventDispatcher().AddListener([&camera, &ubo](const IEvent& ev) {
         const std::string& name = ev.GetName();
         std::cout << "Event: " << name;
 
@@ -85,7 +85,13 @@ int main(int argc, const char** argv)
             std::cout << " | X: " << mouseMovedEvent->GetX()
                       << " | Y: " << mouseMovedEvent->GetY();
 
-            camera.OnMouseMoved(mouseMovedEvent->GetX(), mouseMovedEvent->GetY());
+            camera.OnMouseMoved(
+                mouseMovedEvent->GetX(), mouseMovedEvent->GetY());
+
+            auto vp = camera.GetViewProjectionMatrix();
+
+            ubo.SetData(
+                reinterpret_cast<void*>(&vp), sizeof(viewProjectionMatrix), 0);
         }
 
         std::cout << std::endl;
