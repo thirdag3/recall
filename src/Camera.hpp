@@ -27,6 +27,7 @@ class Camera
     void SetAspectRatio(const float aspect);
     const ViewProjectionMatrix& GetViewProjectionMatrix() const;
     void SetLockCursor(bool shouldLock) const;
+    void OnMouseMoved(int x, int y);
 
   private:
     const ICameraContext& m_cameraContext;

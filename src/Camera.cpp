@@ -1,5 +1,7 @@
 #include "Camera.hpp"
 
+#include <iostream>
+
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
@@ -9,13 +11,15 @@ Camera::Camera(float fov,
     const glm::vec3& position,
     const ICameraContext& cameraContext)
 : m_fov(fov),
-  m_aspect(static_cast<float>(cameraContext.GetWidth()) / cameraContext.GetHeight()),
+  m_aspect(
+      static_cast<float>(cameraContext.GetWidth()) / cameraContext.GetHeight()),
   m_zNear(zNear),
   m_zFar(zFar),
   m_position(position),
   m_cameraContext(cameraContext)
 {
-    m_projection = glm::perspective(glm::radians(m_fov), m_aspect, m_zNear, m_zFar);
+    m_projection =
+        glm::perspective(glm::radians(m_fov), m_aspect, m_zNear, m_zFar);
 
     m_up = glm::vec3(0.0f, 1.0f, 0.0f);
     m_forward = glm::normalize(-m_position);
@@ -76,4 +80,9 @@ const ViewProjectionMatrix& Camera::GetViewProjectionMatrix() const
 void Camera::SetLockCursor(bool shouldLock) const
 {
     m_cameraContext.SetLockCursor(shouldLock);
+}
+
+void Camera::OnMouseMoved(int x, int y)
+{
+    
 }

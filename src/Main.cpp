@@ -39,19 +39,6 @@ std::vector<Vertex> CreateTriangle(float size)
 int main(int argc, const char** argv)
 {
     Window w(800, 600, "RECALL");
-    w.GetEventDispatcher().AddListener([](const IEvent& ev) {
-        const std::string& name = ev.GetName();
-        std::cout << "Event: " << name;
-
-        if (const MouseMovedEvent* mouseMovedEvent =
-                dynamic_cast<const MouseMovedEvent*>(&ev))
-        {
-            std::cout << " | X: " << mouseMovedEvent->GetX()
-                      << " | Y: " << mouseMovedEvent->GetY();
-        }
-
-        std::cout << std::endl;
-    });
 
     BufferLayout layout;
     layout.PushAttribute<glm::vec3>();
@@ -87,6 +74,22 @@ int main(int argc, const char** argv)
     glm::mat4 transformation(1.0f);
 
     camera.SetLockCursor(false);
+
+    w.GetEventDispatcher().AddListener([&camera](const IEvent& ev) {
+        const std::string& name = ev.GetName();
+        std::cout << "Event: " << name;
+
+        if (const MouseMovedEvent* mouseMovedEvent =
+                dynamic_cast<const MouseMovedEvent*>(&ev))
+        {
+            std::cout << " | X: " << mouseMovedEvent->GetX()
+                      << " | Y: " << mouseMovedEvent->GetY();
+
+            camera.OnMouseMoved(mouseMovedEvent->GetX(), mouseMovedEvent->GetY());
+        }
+
+        std::cout << std::endl;
+    });
 
     vao.Bind();
     while (!w.ShouldClose()) {
