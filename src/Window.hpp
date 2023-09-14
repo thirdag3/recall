@@ -6,9 +6,10 @@
 #include <GLFW/glfw3.h>
 
 #include "ICameraContext.hpp"
+#include "IInputContext.hpp"
 #include "EventDispatcher.hpp"
 
-class Window : public ICameraContext
+class Window : public ICameraContext, public IInputContext
 {
   public:
     Window(int width, int height, const std::string& title);
@@ -22,6 +23,7 @@ class Window : public ICameraContext
     int GetWidth() const override;
     int GetHeight() const override;
     void SetLockCursor(bool shouldLock) const override;
+    bool IsKeyPressed(KeyCode keyCode) const override;
     EventDispatcher& GetEventDispatcher();
 
   private:

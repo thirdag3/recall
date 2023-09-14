@@ -1,5 +1,7 @@
 #include "Camera.hpp"
 
+#include <iostream>
+
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
@@ -7,14 +9,16 @@ Camera::Camera(float fov,
     float zNear,
     float zFar,
     const glm::vec3& position,
-    const ICameraContext& cameraContext)
+    const ICameraContext& cameraContext,
+    const IInputContext& inputContext)
 : m_fov(fov),
   m_aspect(
       static_cast<float>(cameraContext.GetWidth()) / cameraContext.GetHeight()),
   m_zNear(zNear),
   m_zFar(zFar),
   m_position(position),
-  m_cameraContext(cameraContext)
+  m_cameraContext(cameraContext),
+  m_inputContext(inputContext)
 {
     m_projection =
         glm::perspective(glm::radians(m_fov), m_aspect, m_zNear, m_zFar);
@@ -115,9 +119,34 @@ void Camera::OnMouseMoved(float x, float y)
     direction.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
 
     m_forward = glm::normalize(direction);
+    m_right =
+        glm::normalize(glm::cross(m_forward, glm::vec3(0.0f, 1.0f, 0.0f)));
+    m_up = glm::cross(m_right, m_forward);
+}
 
-    // m_position = m_position + (m_forward * 0.035f);
+void Camera::Update()
+{
+    if (m_inputContext.IsKeyPressed(KeyCode::W)) {
+        m_position += m_forward * 0.025f;
+    }
 
+    if (m_inputContext.IsKeyPressed(KeyCode::A)) {
+        m_position -= m_right * 0.025f;
+    }
+
+    if (m_inputContext.IsKeyPressed(KeyCode::S)) {
+        m_position -= m_forward * 0.025f;
+    }
+
+    if (m_inputContext.IsKeyPressed(KeyCode::D)) {
+        m_position += m_right * 0.025f;
+    }
+
+    UpdateViewMatrix();
+}
+
+void Camera::UpdateViewMatrix()
+{
     m_view = glm::lookAt(m_position, m_position + m_forward, m_up);
     m_viewProjectionMatrix.view = m_view;
 }

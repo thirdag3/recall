@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "ICameraContext.hpp"
+#include "IInputContext.hpp"
 
 struct ViewProjectionMatrix
 {
@@ -17,7 +18,8 @@ class Camera
         float zNear,
         float zFar,
         const glm::vec3& position,
-        const ICameraContext& cameraContext);
+        const ICameraContext& cameraContext,
+        const IInputContext& inputContext);
     const glm::vec3 GetForward() const;
     const glm::vec3 GetRight() const;
     const glm::mat4& GetProjectionMatrix() const;
@@ -28,9 +30,12 @@ class Camera
     const ViewProjectionMatrix& GetViewProjectionMatrix() const;
     void SetLockCursor(bool shouldLock) const;
     void OnMouseMoved(float x, float y);
+    void Update();
 
   private:
+    void UpdateViewMatrix();
     const ICameraContext& m_cameraContext;
+    const IInputContext& m_inputContext;
     float m_fov;
     float m_aspect;
     float m_zNear;

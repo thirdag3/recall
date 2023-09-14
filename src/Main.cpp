@@ -63,7 +63,7 @@ int main(int argc, const char** argv)
     Shader s("Assets/Shaders/Basic.vert", "Assets/Shaders/Basic.frag");
     s.Bind();
 
-    Camera camera(45.0f, 0.1f, 100.0f, glm::vec3(0.0f, 0.0f, 10.0f), w);
+    Camera camera(45.0f, 0.1f, 100.0f, glm::vec3(0.0f, 0.0f, 10.0f), w, w);
     Renderer r;
 
     auto viewProjectionMatrix = camera.GetViewProjectionMatrix();
@@ -86,11 +86,11 @@ int main(int argc, const char** argv)
             camera.OnMouseMoved(
                 mouseMovedEvent->GetX(), mouseMovedEvent->GetY());
 
-            auto& vp = camera.GetViewProjectionMatrix();
+            // auto& vp = camera.GetViewProjectionMatrix();
 
-            ubo.SetData(reinterpret_cast<const void*>(&vp),
-                sizeof(viewProjectionMatrix),
-                0);
+            // ubo.SetData(reinterpret_cast<const void*>(&vp),
+            //     sizeof(viewProjectionMatrix),
+            //     0);
         }
 
         std::cout << std::endl;
@@ -99,6 +99,14 @@ int main(int argc, const char** argv)
     vao.Bind();
     while (!w.ShouldClose()) {
         r.Clear({0.39f, 0.58f, 0.92f, 1.0f});
+
+        camera.Update();
+
+        auto& vp = camera.GetViewProjectionMatrix();
+
+        ubo.SetData(reinterpret_cast<const void*>(&vp),
+            sizeof(viewProjectionMatrix),
+            0);
 
         transformation =
             glm::rotate(transformation, 0.03f, glm::vec3(0.0f, 0.2f, 0.0f));

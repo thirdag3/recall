@@ -2,7 +2,7 @@
 
 #include "IEvent.hpp"
 
-#include "InputSystem.hpp"
+#include "KeyCode.hpp"
 
 class KeyPressedEvent : public IEvent
 {

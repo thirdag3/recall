@@ -139,6 +139,14 @@ void Window::SetLockCursor(bool shouldLock) const
     }
 }
 
+bool Window::IsKeyPressed(KeyCode keyCode) const
+{
+    int key = static_cast<int>(keyCode);
+    int state = glfwGetKey(m_window, key);
+
+    return state == GLFW_PRESS;
+}
+
 EventDispatcher& Window::GetEventDispatcher()
 {
     return m_eventDispatcher;
