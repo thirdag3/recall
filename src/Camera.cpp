@@ -27,7 +27,6 @@ Camera::Camera(float fov,
     m_right = glm::normalize(glm::cross(m_forward, m_up));
     m_up = glm::cross(m_right, m_forward);
 
-    m_viewProjectionMatrix = {};
     m_viewProjectionMatrix.projection = m_projection;
     m_viewProjectionMatrix.view = m_view;
 
@@ -82,9 +81,42 @@ void Camera::SetLockCursor(bool shouldLock) const
     m_cameraContext.SetLockCursor(shouldLock);
 }
 
-void Camera::OnMouseMoved(int x, int y)
+void Camera::OnMouseMoved(float x, float y)
 {
-    m_position = m_position + (m_forward * 0.035f);
+    if (m_isFirstLookAround) {
+        m_lastX = x;
+        m_lastY = y;
+        m_isFirstLookAround = false;
+    }
+
+    float offsetX = (x - m_lastX);
+    float offsetY = (m_lastY - y);
+
+    offsetX *= m_sensitivity;
+    offsetY *= m_sensitivity;
+
+    m_lastX = x;
+    m_lastY = y;
+
+    m_yaw += offsetX;
+    m_pitch += offsetY;
+
+    if (m_pitch > 89.0f) {
+        m_pitch = 89.0f;
+    }
+
+    if (m_pitch < -89.0f) {
+        m_pitch = -89.0f;
+    }
+
+    glm::vec3 direction(0.0f);
+    direction.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+    direction.y = sin(glm::radians(m_pitch));
+    direction.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+
+    m_forward = glm::normalize(direction);
+
+    // m_position = m_position + (m_forward * 0.035f);
 
     m_view = glm::lookAt(m_position, m_position + m_forward, m_up);
     m_viewProjectionMatrix.view = m_view;

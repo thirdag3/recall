@@ -73,8 +73,6 @@ int main(int argc, const char** argv)
 
     glm::mat4 transformation(1.0f);
 
-    camera.SetLockCursor(false);
-
     w.GetEventDispatcher().AddListener([&camera, &ubo](const IEvent& ev) {
         const std::string& name = ev.GetName();
         std::cout << "Event: " << name;
@@ -90,8 +88,9 @@ int main(int argc, const char** argv)
 
             auto& vp = camera.GetViewProjectionMatrix();
 
-            ubo.SetData(
-                reinterpret_cast<const void*>(&vp), sizeof(viewProjectionMatrix), 0);
+            ubo.SetData(reinterpret_cast<const void*>(&vp),
+                sizeof(viewProjectionMatrix),
+                0);
         }
 
         std::cout << std::endl;

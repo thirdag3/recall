@@ -5,7 +5,7 @@
 class MouseMovedEvent : public IEvent
 {
   public:
-    MouseMovedEvent(int x, int y) : m_xPos(x), m_yPos(y)
+    MouseMovedEvent(float x, float y) : m_xPos(x), m_yPos(y)
     {
     }
 
@@ -14,27 +14,27 @@ class MouseMovedEvent : public IEvent
         return "MouseMovedEvent";
     };
 
-    int GetX() const
+    float GetX() const
     {
         return m_xPos;
     };
 
-    int GetY() const
+    float GetY() const
     {
         return m_yPos;
     };
 
-    void SetX(int x)
+    void SetX(float x)
     {
         m_xPos = x;
     }
 
-    void SetY(int y)
+    void SetY(float y)
     {
         m_yPos = y;
     };
 
   private:
-    int m_xPos;
-    int m_yPos;
+    float m_xPos;
+    float m_yPos;
 };

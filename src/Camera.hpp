@@ -27,7 +27,7 @@ class Camera
     void SetAspectRatio(const float aspect);
     const ViewProjectionMatrix& GetViewProjectionMatrix() const;
     void SetLockCursor(bool shouldLock) const;
-    void OnMouseMoved(int x, int y);
+    void OnMouseMoved(float x, float y);
 
   private:
     const ICameraContext& m_cameraContext;
@@ -41,5 +41,12 @@ class Camera
     glm::vec3 m_position;
     glm::mat4 m_projection;
     glm::mat4 m_view;
-    ViewProjectionMatrix m_viewProjectionMatrix;
+    ViewProjectionMatrix m_viewProjectionMatrix = {};
+    float m_yaw = 0.0f;
+    float m_pitch = 0.0f;
+    float m_roll = 0.0f;
+    float m_lastX = 0.0f;
+    float m_lastY = 0.0f;
+    float m_sensitivity = 0.025f;
+    bool m_isFirstLookAround = true;
 };
