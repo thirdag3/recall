@@ -9,6 +9,7 @@
 
 #include "BufferLayout.hpp"
 #include "Camera.hpp"
+#include "DebugGraphicsGrid.hpp"
 #include "EventDispatcher.hpp"
 #include "IEvent.hpp"
 #include "IndexBuffer.hpp"
@@ -17,14 +18,9 @@
 #include "Shader.hpp"
 #include "Transform.hpp"
 #include "UniformBuffer.hpp"
+#include "Vertex.hpp"
 #include "VertexArray.hpp"
 #include "VertexBuffer.hpp"
-
-struct Vertex
-{
-    glm::vec3 position;
-    glm::vec3 color;
-};
 
 std::vector<Vertex> CreateTriangle(float size)
 {
@@ -131,9 +127,11 @@ int main(int argc, const char** argv)
 
     Transform transform;
 
+    DebugGraphicsGrid grid(10, 10);
+
     vao.Bind();
     while (!w.ShouldClose()) {
-        r.Clear({0.39f, 0.58f, 0.92f, 1.0f});
+        r.Clear({0.15f, 0.15f, 0.15f, 1.0f});
 
         camera.Update();
 
@@ -146,9 +144,12 @@ int main(int argc, const char** argv)
         transform.RotateX(0.5f);
         transform.RotateY(1.0f);
 
+        s.Bind();
         s.SetUniform("model", transform.GetTransformationMatrix());
-
         r.DrawIndexed(vao);
+
+        grid.Draw(r);
+
         w.Update();
     }
 }
