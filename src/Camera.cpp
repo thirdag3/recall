@@ -126,21 +126,37 @@ void Camera::OnMouseMoved(float x, float y)
 
 void Camera::Update()
 {
+    float currentMoveSpeed = m_moveSpeed;
+
+    if (m_inputContext.IsKeyPressed(KeyCode::LeftShift)) {
+        m_moveSpeed *= 2.0f;
+    }
+
     if (m_inputContext.IsKeyPressed(KeyCode::W)) {
-        m_position += m_forward * 0.025f;
+        m_position += m_forward * m_moveSpeed;
     }
 
     if (m_inputContext.IsKeyPressed(KeyCode::A)) {
-        m_position -= m_right * 0.025f;
+        m_position -= m_right * m_moveSpeed;
     }
 
     if (m_inputContext.IsKeyPressed(KeyCode::S)) {
-        m_position -= m_forward * 0.025f;
+        m_position -= m_forward * m_moveSpeed;
     }
 
     if (m_inputContext.IsKeyPressed(KeyCode::D)) {
-        m_position += m_right * 0.025f;
+        m_position += m_right * m_moveSpeed;
     }
+
+    if (m_inputContext.IsKeyPressed(KeyCode::Space)) {
+        m_position += glm::vec3(0.0f, 1.0f, 0.0f) * m_moveSpeed;
+    }
+
+    if (m_inputContext.IsKeyPressed(KeyCode::LeftControl)) {
+        m_position -= glm::vec3(0.0f, 1.0f, 0.0f) * m_moveSpeed;
+    }
+
+    m_moveSpeed = currentMoveSpeed;
 
     UpdateViewMatrix();
 }

@@ -66,8 +66,8 @@ int main(int argc, const char** argv)
     Camera camera(45.0f, 0.1f, 100.0f, glm::vec3(0.0f, 0.0f, 10.0f), w, w);
     Renderer r;
 
-    auto viewProjectionMatrix = camera.GetViewProjectionMatrix();
-    ubo.SetData(reinterpret_cast<void*>(&viewProjectionMatrix),
+    auto& viewProjectionMatrix = camera.GetViewProjectionMatrix();
+    ubo.SetData(reinterpret_cast<const void*>(&viewProjectionMatrix),
         sizeof(viewProjectionMatrix),
         0);
 
@@ -85,12 +85,6 @@ int main(int argc, const char** argv)
 
             camera.OnMouseMoved(
                 mouseMovedEvent->GetX(), mouseMovedEvent->GetY());
-
-            // auto& vp = camera.GetViewProjectionMatrix();
-
-            // ubo.SetData(reinterpret_cast<const void*>(&vp),
-            //     sizeof(viewProjectionMatrix),
-            //     0);
         }
 
         std::cout << std::endl;

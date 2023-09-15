@@ -53,5 +53,6 @@ class Camera
     float m_lastX = 0.0f;
     float m_lastY = 0.0f;
     float m_sensitivity = 0.025f;
+    float m_moveSpeed = 0.025f;
     bool m_isFirstLookAround = true;
 };
