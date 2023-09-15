@@ -2,6 +2,11 @@
 
 #include <glad/glad.h>
 
+Renderer::Renderer()
+{
+    glEnable(GL_DEPTH_TEST);
+}
+
 void Renderer::Draw(const VertexArray& vertexArray, int count)
 {
     vertexArray.Bind();
@@ -20,5 +25,5 @@ void Renderer::DrawIndexed(const VertexArray& vertexArray)
 void Renderer::Clear(glm::vec4 color)
 {
     glClearColor(color.r, color.g, color.b, color.a);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

@@ -7,6 +7,7 @@
 class Renderer
 {
   public:
+    Renderer();
     void Draw(const VertexArray& vertexArray, int count);
     void DrawIndexed(const VertexArray& vertexArray);
     void Clear(glm::vec4 color);
