@@ -9,6 +9,21 @@ Transform::Transform()
     m_scale = glm::vec3(1.0f);
 }
 
+void Transform::TranslateX(float x)
+{
+    m_position.x += x;
+}
+
+void Transform::TranslateY(float y)
+{
+    m_position.y += y;
+}
+
+void Transform::TranslateZ(float z)
+{
+    m_position.z += z;
+}
+
 void Transform::RotateX(float angle)
 {
     m_rotation.x += angle;
@@ -22,6 +37,21 @@ void Transform::RotateY(float angle)
 void Transform::RotateZ(float angle)
 {
     m_rotation.z += angle;
+}
+
+void Transform::ScaleX(float x)
+{
+    m_scale.x += x;
+}
+
+void Transform::ScaleY(float y)
+{
+    m_scale.y += y;
+}
+
+void Transform::ScaleZ(float z)
+{
+    m_scale.z += z;
 }
 
 const glm::vec3& Transform::GetPosition() const

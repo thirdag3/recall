@@ -6,9 +6,15 @@ class Transform
 {
   public:
     Transform();
+    void TranslateX(float x);
+    void TranslateY(float y);
+    void TranslateZ(float z);
     void RotateX(float angle);
     void RotateY(float angle);
     void RotateZ(float angle);
+    void ScaleX(float x);
+    void ScaleY(float y);
+    void ScaleZ(float z);
     const glm::vec3& GetPosition() const;
     const glm::vec3& GetRotation() const;
     const glm::vec3& GetScale() const;
