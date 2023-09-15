@@ -15,6 +15,7 @@
 #include "MouseMovedEvent.hpp"
 #include "Renderer.hpp"
 #include "Shader.hpp"
+#include "Transform.hpp"
 #include "UniformBuffer.hpp"
 #include "VertexArray.hpp"
 #include "VertexBuffer.hpp"
@@ -111,8 +112,6 @@ int main(int argc, const char** argv)
         sizeof(viewProjectionMatrix),
         0);
 
-    glm::mat4 transformation(1.0f);
-
     w.GetEventDispatcher().AddListener([&camera, &ubo](const IEvent& ev) {
         const std::string& name = ev.GetName();
         std::cout << "Event: " << name;
@@ -130,6 +129,8 @@ int main(int argc, const char** argv)
         std::cout << std::endl;
     });
 
+    Transform transform;
+
     vao.Bind();
     while (!w.ShouldClose()) {
         r.Clear({0.39f, 0.58f, 0.92f, 1.0f});
@@ -142,9 +143,10 @@ int main(int argc, const char** argv)
             sizeof(viewProjectionMatrix),
             0);
 
-        transformation =
-            glm::rotate(transformation, 0.03f, glm::vec3(0.0f, 0.2f, 0.0f));
-        s.SetUniform("model", transformation);
+        transform.RotateX(0.5f);
+        transform.RotateY(1.0f);
+
+        s.SetUniform("model", transform.GetTransformationMatrix());
 
         r.DrawIndexed(vao);
         w.Update();
