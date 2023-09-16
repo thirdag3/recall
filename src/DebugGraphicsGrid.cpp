@@ -46,4 +46,5 @@ void DebugGraphicsGrid::Draw(const Renderer& r) const
     m_shader->Bind();
     glDrawArrays(GL_LINES, 0, 84);
     m_shader->Unbind();
+    m_vao.Unbind();
 }

@@ -22,17 +22,17 @@
 #include "VertexArray.hpp"
 #include "VertexBuffer.hpp"
 
-std::vector<Vertex> CreateTriangle(float size)
+std::vector<VertexPosColorNormal> CreateCube(float size)
 {
-    std::vector<Vertex> vertices = {
-        { {-size / 2.0f, -size / 2.0f, size / 2.0f}, {1.0f, 0.0f, 0.0f}},
-        {  {size / 2.0f, -size / 2.0f, size / 2.0f}, {0.0f, 1.0f, 0.0f}},
-        {   {size / 2.0f, size / 2.0f, size / 2.0f}, {0.0f, 0.0f, 1.0f}},
-        {  {-size / 2.0f, size / 2.0f, size / 2.0f}, {0.0f, 0.0f, 1.0f}},
-        {{-size / 2.0f, -size / 2.0f, -size / 2.0f}, {0.0f, 0.0f, 1.0f}},
-        { {size / 2.0f, -size / 2.0f, -size / 2.0f}, {0.0f, 0.0f, 1.0f}},
-        {  {size / 2.0f, size / 2.0f, -size / 2.0f}, {1.0f, 1.0f, 1.0f}},
-        { {-size / 2.0f, size / 2.0f, -size / 2.0f}, {0.0f, 0.0f, 1.0f}}
+    std::vector<VertexPosColorNormal> vertices = {
+        {{-size / 2.0f, -size / 2.0f, size / 2.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}},
+        {  {size / 2.0f, -size / 2.0f, size / 2.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 0.0f}},
+        {   {size / 2.0f, size / 2.0f, size / 2.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 0.0f}},
+        {  {-size / 2.0f, size / 2.0f, size / 2.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 0.0f}},
+        {{-size / 2.0f, -size / 2.0f, -size / 2.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 0.0f}},
+        { {size / 2.0f, -size / 2.0f, -size / 2.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 0.0f}},
+        {  {size / 2.0f, size / 2.0f, -size / 2.0f}, {1.0f, 1.0f, 1.0f}, {0.0f, 0.0f, 0.0f}},
+        { {-size / 2.0f, size / 2.0f, -size / 2.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 0.0f}}
     };
 
     return vertices;
@@ -45,10 +45,11 @@ int main(int argc, const char** argv)
     BufferLayout layout;
     layout.PushAttribute<glm::vec3>();
     layout.PushAttribute<glm::vec3>();
+    layout.PushAttribute<glm::vec3>();
 
-    auto triangle = CreateTriangle(1.0f);
+    auto triangle = CreateCube(1.0f);
     VertexBuffer vbo(reinterpret_cast<float*>(&triangle[0]),
-        sizeof(Vertex) * triangle.size());
+        sizeof(VertexPosColorNormal) * triangle.size());
 
     vbo.SetLayout(layout);
 
@@ -88,6 +89,7 @@ int main(int argc, const char** argv)
         6,
         2,
         1};
+
     std::unique_ptr<IndexBuffer> ebo =
         std::make_unique<IndexBuffer>(&indices[0], indices.size());
 
