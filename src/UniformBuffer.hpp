@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glad/glad.h>
+#include <stddef.h>
 
 class UniformBuffer
 {
