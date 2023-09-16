@@ -12,16 +12,14 @@ Camera::Camera(float fov,
     const ICameraContext& cameraContext,
     const IInputContext& inputContext)
 : m_fov(fov),
-  m_aspect(
-      static_cast<float>(cameraContext.GetWidth()) / cameraContext.GetHeight()),
+  m_aspect(static_cast<float>(cameraContext.GetWidth()) / cameraContext.GetHeight()),
   m_zNear(zNear),
   m_zFar(zFar),
   m_position(position),
   m_cameraContext(cameraContext),
   m_inputContext(inputContext)
 {
-    m_projection =
-        glm::perspective(glm::radians(m_fov), m_aspect, m_zNear, m_zFar);
+    m_projection = glm::perspective(glm::radians(m_fov), m_aspect, m_zNear, m_zFar);
 
     m_up = glm::vec3(0.0f, 1.0f, 0.0f);
     m_forward = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -71,8 +69,7 @@ void Camera::SetPosition(const glm::vec3& position)
 void Camera::SetAspectRatio(const float aspect)
 {
     m_aspect = aspect;
-    m_projection =
-        glm::perspective(glm::radians(m_fov), aspect, m_zNear, m_zFar);
+    m_projection = glm::perspective(glm::radians(m_fov), aspect, m_zNear, m_zFar);
 }
 
 const ViewProjectionMatrix& Camera::GetViewProjectionMatrix() const
@@ -119,8 +116,7 @@ void Camera::OnMouseMoved(float x, float y)
     direction.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
 
     m_forward = glm::normalize(direction);
-    m_right =
-        glm::normalize(glm::cross(m_forward, glm::vec3(0.0f, 1.0f, 0.0f)));
+    m_right = glm::normalize(glm::cross(m_forward, glm::vec3(0.0f, 1.0f, 0.0f)));
     m_up = glm::cross(m_right, m_forward);
 }
 

@@ -39,7 +39,7 @@ void VertexArray::AddVertexBuffer(const VertexBuffer& vertexBuffer) const
             attribute.type,
             GL_FALSE,
             stride,
-            (void*)offset);
+            reinterpret_cast<void*>(offset));
         glEnableVertexAttribArray(index);
 
         index++;

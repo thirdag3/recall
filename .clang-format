@@ -1,13 +1,14 @@
 ---
 AlignAfterOpenBracket: DontAlign
-AlignArrayOfStructures: Right
+AlignArrayOfStructures: None
 AlignOperands: DontAlign
+AlignTrailingComments: false
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortEnumsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: None
 AlwaysBreakTemplateDeclarations: 'Yes'
 BasedOnStyle: LLVM
-BinPackArguments: false
+BinPackArguments: true
 BinPackParameters: false
 BraceWrapping:
   AfterClass: true
@@ -22,8 +23,10 @@ BraceWrapping:
   BeforeElse: true
 BreakBeforeBinaryOperators: NonAssignment
 BreakBeforeBraces: Custom
+ColumnLimit: 120
 ConstructorInitializerIndentWidth: 0
-IndentWidth: 4
 ContinuationIndentWidth: 4
+Cpp11BracedListStyle: false
+IndentWidth: 4
 PackConstructorInitializers: CurrentLine
 PointerAlignment: Left
