@@ -142,7 +142,7 @@ int main(int argc, const char** argv)
     Shader s("Assets/Shaders/Phong.vert", "Assets/Shaders/Phong.frag");
     s.Bind();
 
-    Camera camera(45.0f, 0.1f, 100.0f, glm::vec3(0.0f, 0.0f, 10.0f), w, w);
+    Camera camera(45.0f, 0.1f, 100.0f, glm::vec3(-5.0f, 1.0f, 0.0f), w, w);
     Renderer r;
 
     auto& viewProjectionMatrix = camera.GetViewProjectionMatrix();
@@ -174,11 +174,13 @@ int main(int argc, const char** argv)
             sizeof(viewProjectionMatrix),
             0);
 
-        transform.RotateX(0.5f);
-        transform.RotateY(1.0f);
+        transform.RotateX(0.25f);
+        transform.RotateY(0.5f);
 
         s.Bind();
         s.SetUniform("model", transform.GetTransformationMatrix());
+        s.SetUniform("lightPos", glm::vec3(1.0f));
+        s.SetUniform("cameraPos", camera.GetPosition());
         r.DrawIndexed(vao);
 
         grid.Draw(r);
