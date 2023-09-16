@@ -97,7 +97,7 @@ int main(int argc, const char** argv)
 
     UniformBuffer ubo(sizeof(ViewProjectionMatrix), 0);
 
-    Shader s("Assets/Shaders/Basic.vert", "Assets/Shaders/Basic.frag");
+    Shader s("Assets/Shaders/Phong.vert", "Assets/Shaders/Phong.frag");
     s.Bind();
 
     Camera camera(45.0f, 0.1f, 100.0f, glm::vec3(0.0f, 0.0f, 10.0f), w, w);
@@ -109,27 +109,18 @@ int main(int argc, const char** argv)
         0);
 
     w.GetEventDispatcher().AddListener([&camera, &ubo](const IEvent& ev) {
-        const std::string& name = ev.GetName();
-        std::cout << "Event: " << name;
-
         if (const MouseMovedEvent* mouseMovedEvent =
                 dynamic_cast<const MouseMovedEvent*>(&ev))
         {
-            std::cout << " | X: " << mouseMovedEvent->GetX()
-                      << " | Y: " << mouseMovedEvent->GetY();
-
             camera.OnMouseMoved(
                 mouseMovedEvent->GetX(), mouseMovedEvent->GetY());
         }
-
-        std::cout << std::endl;
     });
 
     Transform transform;
 
     DebugGraphicsGrid grid(10, 10);
 
-    vao.Bind();
     while (!w.ShouldClose()) {
         r.Clear({0.15f, 0.15f, 0.15f, 1.0f});
 
