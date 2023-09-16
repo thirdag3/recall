@@ -7,7 +7,7 @@ externalproject "assimp"
 
     location "assimp/build/code/"
     targetdir ("assimp/build/lib/" .. ((os.host == "windows") and "%{cfg.buildcfg}/" or ""))
-    targetname "assimp-vc143-mtd"
+    targetname ((os.host == "windows") and "assimp-vc143-mtd" or "assimp")
 
     os.execute "cmake -Sassimp/ -Bassimp/build/ -DBUILD_SHARED_LIBS=OFF"
     os.execute "cmake --build assimp/build/"
