@@ -10,12 +10,11 @@
 class DebugGraphicsGrid
 {
   public:
-    DebugGraphicsGrid(int width, int height);
+    DebugGraphicsGrid(int size);
     void Draw(const Renderer& r) const;
 
   private:
-    int m_width;
-    int m_height;
+    int m_size;
     VertexArray m_vao;
     std::unique_ptr<VertexBuffer> m_vbo;
     std::unique_ptr<Shader> m_shader;

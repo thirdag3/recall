@@ -8,24 +8,22 @@
 #include "BufferLayout.hpp"
 #include "VertexBuffer.hpp"
 
-DebugGraphicsGrid::DebugGraphicsGrid(int width, int height)
-: m_width(width),
-  m_height(height)
+DebugGraphicsGrid::DebugGraphicsGrid(int size)
+: m_size(size)
 {
     std::vector<Vertex> vertices;
 
     BufferLayout bufferLayout;
     bufferLayout.PushAttribute<glm::vec3>();
-    bufferLayout.PushAttribute<glm::vec3>();
 
-    for (int i = -10; i <= 10; ++i) {
+    for (int i = -m_size / 2; i <= m_size / 2; ++i) {
         // First line
-        vertices.push_back({{i, 0, -10, }, {1.0f, 1.0f, 1.0f}});
-        vertices.push_back({{i, 0, 10, }, {1.0f, 1.0f, 1.0f}});
+        vertices.push_back({{i, 0, -m_size / 2, }});
+        vertices.push_back({{i, 0, m_size / 2, }});
 
         // Second line
-        vertices.push_back({{-10, 0, i, }, {1.0f, 1.0f, 1.0f}});
-        vertices.push_back({{10, 0, i, }, {1.0f, 1.0f, 1.0f}});
+        vertices.push_back({{-m_size / 2, 0, i, }});
+        vertices.push_back({{m_size / 2, 0, i, }});
     }
 
     m_vbo =
@@ -44,6 +42,6 @@ void DebugGraphicsGrid::Draw(const Renderer& r) const
 {
     m_vao.Bind();
     m_shader->Use();
-    glDrawArrays(GL_LINES, 0, 84);
+    glDrawArrays(GL_LINES, 0, (m_size + 1) * 4);
     m_vao.Unbind();
 }

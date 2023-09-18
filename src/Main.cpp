@@ -124,7 +124,7 @@ int main(int argc, const char** argv)
 
     Transform transform;
 
-    DebugGraphicsGrid grid(10, 10);
+    DebugGraphicsGrid grid(50);
 
     while (!w.ShouldClose()) {
         r.Clear({ 0.15f, 0.15f, 0.15f, 1.0f });
