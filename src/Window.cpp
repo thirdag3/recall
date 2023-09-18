@@ -32,6 +32,9 @@ Window::Window(int width, int height, const std::string& title)
     // Debug Output
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
+    // MSAA
+    glfwWindowHint(GLFW_SAMPLES, 4);
+
     m_window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 
     if (m_window == nullptr) {
@@ -52,6 +55,8 @@ Window::Window(int width, int height, const std::string& title)
 
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(DebugOutputCallback, nullptr);
+
+    glEnable(GL_MULTISAMPLE);
 
     glfwSetKeyCallback(m_window,
         [](GLFWwindow* window, int key, int scancode, int action, int mods) {

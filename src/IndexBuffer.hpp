@@ -11,9 +11,8 @@ class IndexBuffer
     IndexBuffer(const IndexBuffer&& other) = delete;
     IndexBuffer& operator=(const IndexBuffer&& other) noexcept = delete;
     ~IndexBuffer();
-    void Bind() const;
-    void Unbind() const;
     GLuint GetCount();
+    GLuint GetID() const;
 
   private:
     GLuint m_id;

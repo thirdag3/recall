@@ -15,7 +15,7 @@ class Shader
     Shader(const Shader&& other) = delete;
     Shader& operator=(const Shader&& other) noexcept = delete;
     ~Shader();
-    void Bind() const;
+    void Use() const;
     void Unbind() const;
     void SetUniform(const std::string& name, const int& value) const;
     void SetUniform(const std::string& name, const float& value) const;

@@ -51,11 +51,10 @@ Shader::Shader(const std::string& vertexShaderPath,
 
 Shader::~Shader()
 {
-    Unbind();
     glDeleteProgram(m_id);
 }
 
-void Shader::Bind() const
+void Shader::Use() const
 {
     glUseProgram(m_id);
 }

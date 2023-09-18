@@ -11,6 +11,7 @@ void Renderer::Draw(const VertexArray& vertexArray, int count) const
 {
     vertexArray.Bind();
     glDrawArrays(GL_TRIANGLES, 0, count);
+    vertexArray.Unbind();
 }
 
 void Renderer::DrawIndexed(const VertexArray& vertexArray) const

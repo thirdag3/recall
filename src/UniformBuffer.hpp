@@ -12,8 +12,6 @@ class UniformBuffer
     UniformBuffer(const UniformBuffer&& other) = delete;
     UniformBuffer& operator=(const UniformBuffer&& other) noexcept = delete;
     ~UniformBuffer();
-    void Bind() const;
-    void Unbind() const;
     void SetData(const void* data, size_t size, unsigned int offset);
 
   private:

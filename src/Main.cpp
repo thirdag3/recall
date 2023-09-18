@@ -108,7 +108,7 @@ int main(int argc, const char** argv)
     UniformBuffer ubo(sizeof(ViewProjectionMatrix), 0);
 
     Shader s("Assets/Shaders/Phong.vert", "Assets/Shaders/Phong.frag");
-    s.Bind();
+    s.Use();
 
     Camera camera(45.0f, 0.1f, 100.0f, glm::vec3(-5.0f, 1.0f, 0.0f), w, w);
     Renderer r;
@@ -138,7 +138,7 @@ int main(int argc, const char** argv)
         transform.RotateX(0.25f);
         transform.RotateY(0.5f);
 
-        s.Bind();
+        s.Use();
         s.SetUniform("model", transform.GetTransformationMatrix());
         s.SetUniform("lightPos", glm::vec3(1.0f));
         s.SetUniform("cameraPos", camera.GetPosition());
