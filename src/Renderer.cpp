@@ -2,25 +2,33 @@
 
 #include <glad/glad.h>
 
+GLenum DrawingPrimitiveTypeToGL(DrawingPrimitiveType primitiveType)
+{
+    switch (primitiveType) {
+    case DrawingPrimitiveType::Triangles:
+        return GL_TRIANGLES;
+
+    case DrawingPrimitiveType::Lines:
+        return GL_LINES;
+    }
+}
+
 Renderer::Renderer()
 {
     glEnable(GL_DEPTH_TEST);
 }
 
-void Renderer::Draw(const VertexArray& vertexArray, int count) const
+void Renderer::Draw(DrawingPrimitiveType primitiveType, const VertexArray& vertexArray, int count) const
 {
     vertexArray.Bind();
-    glDrawArrays(GL_TRIANGLES, 0, count);
-    vertexArray.Unbind();
+    glDrawArrays(DrawingPrimitiveTypeToGL(primitiveType), 0, count);
 }
 
-void Renderer::DrawIndexed(const VertexArray& vertexArray) const
+void Renderer::DrawIndexed(DrawingPrimitiveType primitiveType, const VertexArray& vertexArray) const
 {
     vertexArray.Bind();
-    glDrawElements(GL_TRIANGLES,
-        vertexArray.GetIndexBuffer()->GetCount(),
-        GL_UNSIGNED_INT,
-        nullptr);
+    glDrawElements(
+        DrawingPrimitiveTypeToGL(primitiveType), vertexArray.GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 }
 
 void Renderer::Clear(glm::vec4 color) const

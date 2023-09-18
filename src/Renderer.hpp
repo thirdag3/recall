@@ -4,11 +4,17 @@
 
 #include "VertexArray.hpp"
 
+enum class DrawingPrimitiveType
+{
+    Triangles,
+    Lines
+};
+
 class Renderer
 {
   public:
     Renderer();
-    void Draw(const VertexArray& vertexArray, int count) const;
-    void DrawIndexed(const VertexArray& vertexArray) const;
+    void Draw(DrawingPrimitiveType primitiveType, const VertexArray& vertexArray, int count) const;
+    void DrawIndexed(DrawingPrimitiveType primitiveType, const VertexArray& vertexArray) const;
     void Clear(glm::vec4 color) const;
 };

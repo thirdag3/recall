@@ -37,11 +37,20 @@ DebugGraphicsGrid::DebugGraphicsGrid(int size, glm::vec4 lineColor) : m_size(siz
     m_vao.AddVertexBuffer(*m_vbo);
 }
 
-void DebugGraphicsGrid::Draw(const Renderer& r) const
+void DebugGraphicsGrid::Draw(const Renderer& renderer) const
 {
     m_vao.Bind();
     m_shader->Use();
     m_shader->SetUniform("color", m_lineColor);
-    glDrawArrays(GL_LINES, 0, (m_size + 1) * 4);
-    m_vao.Unbind();
+    renderer.Draw(DrawingPrimitiveType::Lines, m_vao, (m_size + 1) * 4);
+}
+
+const glm::vec4& DebugGraphicsGrid::GetLineColor() const
+{
+    return m_lineColor;
+}
+
+void DebugGraphicsGrid::SetLineColor(glm::vec4 color)
+{
+    m_lineColor = color;
 }

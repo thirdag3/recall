@@ -142,7 +142,7 @@ int main(int argc, const char** argv)
         s.SetUniform("model", transform.GetTransformationMatrix());
         s.SetUniform("lightPos", glm::vec3(1.0f));
         s.SetUniform("cameraPos", camera.GetPosition());
-        r.DrawIndexed(vao);
+        r.DrawIndexed(DrawingPrimitiveType::Triangles, vao);
 
         grid.Draw(r);
 
