@@ -2,12 +2,13 @@
 
 #include <memory>
 
-#include "VertexArray.hpp"
 #include "Material.hpp"
+#include "VertexArray.hpp"
 
 class Mesh
 {
   public:
+    Mesh();
 
   private:
     VertexArray m_vao;

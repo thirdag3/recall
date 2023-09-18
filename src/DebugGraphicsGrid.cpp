@@ -8,8 +8,7 @@
 #include "BufferLayout.hpp"
 #include "VertexBuffer.hpp"
 
-DebugGraphicsGrid::DebugGraphicsGrid(int size)
-: m_size(size)
+DebugGraphicsGrid::DebugGraphicsGrid(int size, glm::vec4 lineColor) : m_size(size), m_lineColor(lineColor)
 {
     std::vector<Vertex> vertices;
 
@@ -42,6 +41,7 @@ void DebugGraphicsGrid::Draw(const Renderer& r) const
 {
     m_vao.Bind();
     m_shader->Use();
+    m_shader->SetUniform("color", m_lineColor);
     glDrawArrays(GL_LINES, 0, (m_size + 1) * 4);
     m_vao.Unbind();
 }
