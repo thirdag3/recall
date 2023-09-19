@@ -4,13 +4,14 @@
 
 #include "Material.hpp"
 #include "VertexArray.hpp"
+#include "Renderer.hpp"
 
 class Mesh
 {
   public:
-    Mesh();
+    Mesh(std::unique_ptr<VertexArray> vertexArray);
+    void Draw(const Renderer& renderer) const;
 
   private:
-    VertexArray m_vao;
-    const Material& m_material;
+    std::unique_ptr<VertexArray> m_vao;
 };

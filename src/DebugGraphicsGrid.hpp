@@ -13,7 +13,7 @@ class DebugGraphicsGrid
 {
   public:
     DebugGraphicsGrid(int size, glm::vec4 lineColor);
-    void Draw(const Renderer& r) const;
+    void Draw(const Renderer& renderer) const;
     const glm::vec4& GetLineColor() const;
     void SetLineColor(glm::vec4 color);
 
