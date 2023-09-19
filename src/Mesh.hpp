@@ -14,4 +14,5 @@ class Mesh
 
   private:
     std::unique_ptr<VertexArray> m_vao;
+    std::shared_ptr<Material> m_material = nullptr;
 };
