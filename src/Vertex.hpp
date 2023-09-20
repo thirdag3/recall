@@ -13,6 +13,13 @@ struct VertexPosNormal
     glm::vec3 normal;
 };
 
+struct VertexPosNormalTexture
+{
+    glm::vec3 position;
+    glm::vec3 normal;
+    glm::vec2 uv;
+};
+
 struct VertexPosColorNormal
 {
     glm::vec3 position;

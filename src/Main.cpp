@@ -46,10 +46,11 @@ int main(int argc, const char** argv)
     });
 
     Transform transform;
+    transform.SetScale(glm::vec3(0.025f));
 
     DebugGraphicsGrid grid(50, glm::vec4(0.5f, 0.5f, 0.5f, 1.0f));
 
-    Model dragon("Assets/Models/Dragon.fbx");
+    Model dragon("Assets/Models/Fox.glb");
 
     while (!w.ShouldClose()) {
         r.Clear({ 0.15f, 0.15f, 0.15f, 1.0f });

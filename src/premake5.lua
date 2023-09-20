@@ -18,7 +18,8 @@ project "Recall"
         "%{wks.location}/external/glm",
         "%{wks.location}/external/imgui",
         "%{wks.location}/external/assimp/include",
-        "%{wks.location}/external/assimp/build/include/"
+        "%{wks.location}/external/assimp/build/include/",
+        "%{wks.location}/external/stb/"
     }
 
     filter "system:linux"
