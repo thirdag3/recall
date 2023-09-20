@@ -4,42 +4,42 @@
 
 std::unique_ptr<Mesh> PrimitiveFactory::CreateCube(float size)
 {
-    std::vector<VertexPosColorNormal> vertices = {
+    std::vector<VertexPosNormal> vertices = {
         // Front face
-        { { -size / 2.0f, -size / 2.0f, size / 2.0f }, { 1.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 1.0f } },
-        { { size / 2.0f, -size / 2.0f, size / 2.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 0.0f, 1.0f } },
-        { { size / 2.0f, size / 2.0f, size / 2.0f }, { 0.0f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f } },
-        { { -size / 2.0f, size / 2.0f, size / 2.0f }, { 1.0f, 1.0f, 0.0f }, { 0.0f, 0.0f, 1.0f } },
+        { { -size / 2.0f, -size / 2.0f, size / 2.0f }, { 0.0f, 0.0f, 1.0f } },
+        { { size / 2.0f, -size / 2.0f, size / 2.0f }, { 0.0f, 0.0f, 1.0f } },
+        { { size / 2.0f, size / 2.0f, size / 2.0f }, { 0.0f, 0.0f, 1.0f } },
+        { { -size / 2.0f, size / 2.0f, size / 2.0f }, { 0.0f, 0.0f, 1.0f } },
 
         // Back face
-        { { -size / 2.0f, -size / 2.0f, -size / 2.0f }, { 1.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, -1.0f } },
-        { { size / 2.0f, -size / 2.0f, -size / 2.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 0.0f, -1.0f } },
-        { { size / 2.0f, size / 2.0f, -size / 2.0f }, { 0.0f, 0.0f, 1.0f }, { 0.0f, 0.0f, -1.0f } },
-        { { -size / 2.0f, size / 2.0f, -size / 2.0f }, { 1.0f, 1.0f, 0.0f }, { 0.0f, 0.0f, -1.0f } },
+        { { -size / 2.0f, -size / 2.0f, -size / 2.0f }, { 0.0f, 0.0f, -1.0f } },
+        { { size / 2.0f, -size / 2.0f, -size / 2.0f }, { 0.0f, 0.0f, -1.0f } },
+        { { size / 2.0f, size / 2.0f, -size / 2.0f }, { 0.0f, 0.0f, -1.0f } },
+        { { -size / 2.0f, size / 2.0f, -size / 2.0f }, { 0.0f, 0.0f, -1.0f } },
 
         // Top face
-        { { -size / 2.0f, size / 2.0f, size / 2.0f }, { 1.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f } },
-        { { size / 2.0f, size / 2.0f, size / 2.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 1.0f, 0.0f } },
-        { { size / 2.0f, size / 2.0f, -size / 2.0f }, { 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f } },
-        { { -size / 2.0f, size / 2.0f, -size / 2.0f }, { 1.0f, 1.0f, 0.0f }, { 0.0f, 1.0f, 0.0f } },
+        { { -size / 2.0f, size / 2.0f, size / 2.0f }, { 0.0f, 1.0f, 0.0f } },
+        { { size / 2.0f, size / 2.0f, size / 2.0f }, { 0.0f, 1.0f, 0.0f } },
+        { { size / 2.0f, size / 2.0f, -size / 2.0f }, { 0.0f, 1.0f, 0.0f } },
+        { { -size / 2.0f, size / 2.0f, -size / 2.0f }, { 0.0f, 1.0f, 0.0f } },
 
         // Bottom face
-        { { -size / 2.0f, -size / 2.0f, size / 2.0f }, { 1.0f, 0.0f, 0.0f }, { 0.0f, -1.0f, 0.0f } },
-        { { size / 2.0f, -size / 2.0f, size / 2.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, -1.0f, 0.0f } },
-        { { size / 2.0f, -size / 2.0f, -size / 2.0f }, { 0.0f, 0.0f, 1.0f }, { 0.0f, -1.0f, 0.0f } },
-        { { -size / 2.0f, -size / 2.0f, -size / 2.0f }, { 1.0f, 1.0f, 0.0f }, { 0.0f, -1.0f, 0.0f } },
+        { { -size / 2.0f, -size / 2.0f, size / 2.0f }, { 0.0f, -1.0f, 0.0f } },
+        { { size / 2.0f, -size / 2.0f, size / 2.0f }, { 0.0f, -1.0f, 0.0f } },
+        { { size / 2.0f, -size / 2.0f, -size / 2.0f }, { 0.0f, -1.0f, 0.0f } },
+        { { -size / 2.0f, -size / 2.0f, -size / 2.0f }, { 0.0f, -1.0f, 0.0f } },
 
         // Right face
-        { { size / 2.0f, -size / 2.0f, size / 2.0f }, { 1.0f, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f } },
-        { { size / 2.0f, -size / 2.0f, -size / 2.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 0.0f, 0.0f } },
-        { { size / 2.0f, size / 2.0f, -size / 2.0f }, { 0.0f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f } },
-        { { size / 2.0f, size / 2.0f, size / 2.0f }, { 1.0f, 1.0f, 0.0f }, { 1.0f, 0.0f, 0.0f } },
+        { { size / 2.0f, -size / 2.0f, size / 2.0f }, { 1.0f, 0.0f, 0.0f } },
+        { { size / 2.0f, -size / 2.0f, -size / 2.0f }, { 1.0f, 0.0f, 0.0f } },
+        { { size / 2.0f, size / 2.0f, -size / 2.0f }, { 1.0f, 0.0f, 0.0f } },
+        { { size / 2.0f, size / 2.0f, size / 2.0f }, { 1.0f, 0.0f, 0.0f } },
 
         // Left face
-        { { -size / 2.0f, -size / 2.0f, size / 2.0f }, { 1.0f, 0.0f, 0.0f }, { -1.0f, 0.0f, 0.0f } },
-        { { -size / 2.0f, -size / 2.0f, -size / 2.0f }, { 0.0f, 1.0f, 0.0f }, { -1.0f, 0.0f, 0.0f } },
-        { { -size / 2.0f, size / 2.0f, -size / 2.0f }, { 0.0f, 0.0f, 1.0f }, { -1.0f, 0.0f, 0.0f } },
-        { { -size / 2.0f, size / 2.0f, size / 2.0f }, { 1.0f, 1.0f, 0.0f }, { -1.0f, 0.0f, 0.0f } },
+        { { -size / 2.0f, -size / 2.0f, size / 2.0f }, { -1.0f, 0.0f, 0.0f } },
+        { { -size / 2.0f, -size / 2.0f, -size / 2.0f }, { -1.0f, 0.0f, 0.0f } },
+        { { -size / 2.0f, size / 2.0f, -size / 2.0f }, { -1.0f, 0.0f, 0.0f } },
+        { { -size / 2.0f, size / 2.0f, size / 2.0f }, { -1.0f, 0.0f, 0.0f } },
     };
 
     std::vector<GLuint> indices = { //
@@ -65,10 +65,9 @@ std::unique_ptr<Mesh> PrimitiveFactory::CreateCube(float size)
     BufferLayout layout;
     layout.PushAttribute<glm::vec3>();
     layout.PushAttribute<glm::vec3>();
-    layout.PushAttribute<glm::vec3>();
 
     std::unique_ptr<VertexBuffer> vbo = std::make_unique<VertexBuffer>(
-        reinterpret_cast<float*>(&vertices[0]), sizeof(VertexPosColorNormal) * vertices.size());
+        reinterpret_cast<float*>(&vertices[0]), sizeof(VertexPosNormal) * vertices.size());
 
     vbo->SetLayout(layout);
 

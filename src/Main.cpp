@@ -22,14 +22,11 @@
 #include "VertexArray.hpp"
 #include "VertexBuffer.hpp"
 #include "PrimitiveFactory.hpp"
+#include "Model.hpp"
 
 int main(int argc, const char** argv)
 {
     Window w(800, 600, "RECALL");
-
-    auto cube = PrimitiveFactory::CreateCube(1.0f);
-    auto cube2 = PrimitiveFactory::CreateCube(0.5f);
-    auto cube3 = PrimitiveFactory::CreateCube(0.5f);
 
     UniformBuffer ubo(sizeof(ViewProjectionMatrix), 0);
 
@@ -49,13 +46,10 @@ int main(int argc, const char** argv)
     });
 
     Transform transform;
-    Transform transform2;
-    Transform transform3;
-
-    transform2.TranslateX(3.0f);
-    transform3.TranslateX(-3.0f);
 
     DebugGraphicsGrid grid(50, glm::vec4(0.5f, 0.5f, 0.5f, 1.0f));
+
+    Model dragon("Assets/Models/Dragon.fbx");
 
     while (!w.ShouldClose()) {
         r.Clear({ 0.15f, 0.15f, 0.15f, 1.0f });
@@ -66,21 +60,12 @@ int main(int argc, const char** argv)
         ubo.SetData(reinterpret_cast<const void*>(&vp), sizeof(viewProjectionMatrix), 0);
 
         s.Use();
-        s.SetUniform("lightPos", glm::vec3(0.0f, 2.5f, 0.0f));
+        s.SetUniform("lightPos", glm::vec3(0.0f, 15.0f, 10.0f));
         s.SetUniform("cameraPos", camera.GetPosition());
 
-        transform.RotateX(0.25f);
-        transform.RotateY(0.5f);
+        transform.RotateY(0.25f);
         s.SetUniform("model", transform.GetTransformationMatrix());
-        cube->Draw(r);
-
-        transform2.RotateZ(3.5f);
-        s.SetUniform("model", transform2.GetTransformationMatrix());
-        cube2->Draw(r);
-
-        transform3.RotateY(2.5f);
-        s.SetUniform("model", transform3.GetTransformationMatrix());
-        cube3->Draw(r);
+        dragon.Draw(r);
 
         grid.Draw(r);
 
