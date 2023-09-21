@@ -11,17 +11,24 @@ struct Material
 in vec3 normal;
 in vec4 fragPos;
 
+in vec2 uv;
+
 out vec4 FragColor;
 
 uniform vec3 lightPos;
 uniform vec3 cameraPos;
 
-uniform Material material;
+// uniform Material material;
+
+uniform sampler2D texture1;
 
 void main()
 {
-    vec3 objectColor = vec3(0.8f, 0.0f, 0.5f);
-    vec3 lightColor = vec3(1.0f);
+    //vec3 objectColor = vec3(0.8f, 0.0f, 0.5f);
+
+    vec3 objectColor = texture(texture1, uv).rgb;
+
+    vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
 
     vec3 lightDirection = normalize(lightPos - fragPos.xyz);
     vec3 normal = normalize(normal);

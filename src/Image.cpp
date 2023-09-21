@@ -7,6 +7,23 @@ Image::Image(const std::string& path) : m_width(0), m_height(0), m_channels(0), 
     m_data = stbi_load(path.c_str(), &m_width, &m_height, &m_channels, 0);
 }
 
+Image::Image(int width, int height, int channels, unsigned char* data)
+: m_width(width),
+  m_height(height),
+  m_channels(channels)
+{
+    if (height == 0)
+    {
+        m_data = stbi_load_from_memory(data, width, &m_width, &m_height, &m_channels, 0);
+    }
+    else
+    {
+        size_t dataSize = width * height * channels * sizeof(unsigned char);
+        m_data = new unsigned char[dataSize];
+        std::memcpy(m_data, data, dataSize);
+    }
+}
+
 Image::Image(Image&& other) noexcept
 : m_width(other.m_width),
   m_height(other.m_height),

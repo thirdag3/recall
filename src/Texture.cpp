@@ -37,12 +37,31 @@ Texture::Texture(const Image& image)
     glTextureParameteri(m_id, GL_TEXTURE_WRAP_T, GL_REPEAT);
 }
 
+Texture::Texture(Texture&& other) noexcept : m_id(other.m_id)
+{
+    other.m_id = 0;
+}
+
+Texture& Texture::operator=(Texture&& other) noexcept
+{
+    if (this != &other) {
+        if (m_id) {
+            glDeleteTextures(1, &m_id);
+        }
+
+        m_id = other.m_id;
+        other.m_id = 0;
+    }
+
+    return *this;
+}
+
 Texture::~Texture()
 {
     glDeleteTextures(1, &m_id);
 }
 
-void Texture::BindToUnit(unsigned int unit)
+void Texture::BindToUnit(unsigned int unit) const
 {
     glBindTextureUnit(unit, m_id);
 }

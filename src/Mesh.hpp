@@ -9,7 +9,7 @@
 class Mesh
 {
   public:
-    Mesh(std::unique_ptr<VertexArray> vertexArray);
+    Mesh(std::unique_ptr<VertexArray> vertexArray, std::shared_ptr<Material> material);
     void Draw(const Renderer& renderer) const;
 
   private:

@@ -8,6 +8,7 @@ class Image
 {
   public:
     Image(const std::string& path);
+    Image(int width, int height, int channels, unsigned char* data);
     Image(const Image& other) = delete;
     Image& operator=(const Image& other) = delete;
     Image(Image&& other) noexcept;

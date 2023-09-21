@@ -77,5 +77,5 @@ std::unique_ptr<Mesh> PrimitiveFactory::CreateCube(float size)
     vao->AddVertexBuffer(*vbo);
     vao->SetIndexBuffer(std::move(ebo));
 
-    return std::make_unique<Mesh>(std::move(vao));
+    return std::make_unique<Mesh>(std::move(vao), nullptr);
 }
