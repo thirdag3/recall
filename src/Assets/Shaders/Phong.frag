@@ -20,13 +20,13 @@ uniform vec3 cameraPos;
 
 // uniform Material material;
 
-uniform sampler2D texture1;
+uniform sampler2D texture_diffuse;
 
 void main()
 {
     //vec3 objectColor = vec3(0.8f, 0.0f, 0.5f);
 
-    vec3 objectColor = texture(texture1, uv).rgb;
+    vec3 objectColor = texture(texture_diffuse, uv).rgb;
 
     vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
 

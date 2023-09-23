@@ -6,6 +6,7 @@
 
 #include "Texture.hpp"
 #include "Vertex.hpp"
+#include "ShaderLibrary.hpp"
 
 Model::Model(const std::string& modelFile)
 {
@@ -69,7 +70,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         diffuseTextures = LoadTexturesFromMaterial(material, aiTextureType_DIFFUSE, scene);
     }
 
-    std::shared_ptr<Material> meshMaterial = std::make_shared<Material>(std::move(diffuseTextures[0]));
+    std::shared_ptr<Material> meshMaterial = std::make_shared<Material>(ShaderLibrary::GetStandardPhong(), std::move(diffuseTextures[0]));
 
     BufferLayout layout;
     layout.PushAttribute<glm::vec3>();

@@ -1,11 +1,12 @@
 #include "Material.hpp"
 
-Material::Material(Texture&& diffuse)
+Material::Material(std::shared_ptr<Shader> shader, Texture&& diffuse)
 : m_ambientColor(0.0f),
   m_diffuseColor(0.0f),
   m_specularColor(0.0f),
   m_shininess(0.0f),
-  m_diffuse(std::move(diffuse))
+  m_diffuse(std::move(diffuse)),
+  m_shader(shader)
 {
 }
 
@@ -27,6 +28,11 @@ glm::vec3 Material::GetSpecularColor() const
 const Texture& Material::GetDiffuseTexture() const
 {
     return m_diffuse;
+}
+
+std::shared_ptr<Shader> Material::GetShader() const
+{
+    return m_shader;
 }
 
 float Material::GetShininess() const
@@ -57,4 +63,9 @@ void Material::SetShininess(float shininess)
 void Material::SetDiffuseTexture(Texture&& diffuseTexture)
 {
     m_diffuse = std::move(diffuseTexture);
+}
+
+void Material::SetShader(std::shared_ptr<Shader> shader)
+{
+    m_shader = shader;
 }

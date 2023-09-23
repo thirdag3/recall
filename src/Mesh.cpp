@@ -10,13 +10,8 @@ Mesh::Mesh(std::unique_ptr<VertexArray> vertexArray, std::shared_ptr<Material> m
 
 void Mesh::Draw(const Renderer& renderer) const
 {
-    GLint maxTextureUnits;
-    glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, &maxTextureUnits);
-
     m_material->GetDiffuseTexture().BindToUnit(0);
-
-    GLuint location = glGetUniformLocation(3, "texture1");
-    glUniform1i(location, 0);
+    m_material->GetShader()->SetUniform("texture_diffuse", 0);
 
     renderer.DrawIndexed(DrawingPrimitiveType::Triangles, *m_vao);
 }

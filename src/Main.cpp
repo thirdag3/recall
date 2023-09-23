@@ -23,6 +23,7 @@
 #include "VertexBuffer.hpp"
 #include "PrimitiveFactory.hpp"
 #include "Model.hpp"
+#include "ShaderLibrary.hpp"
 
 int main(int argc, const char** argv)
 {
@@ -30,8 +31,10 @@ int main(int argc, const char** argv)
 
     UniformBuffer ubo(sizeof(ViewProjectionMatrix), 0);
 
-    Shader s("Assets/Shaders/Phong.vert", "Assets/Shaders/Phong.frag");
-    s.Use();
+    ShaderLibrary::Initialize();
+    auto s = ShaderLibrary::GetStandardPhong();
+
+    s->Use();
 
     Camera camera(45.0f, 0.1f, 100.0f, glm::vec3(-5.0f, 1.0f, 0.0f), w, w);
     Renderer r;
@@ -60,12 +63,12 @@ int main(int argc, const char** argv)
         auto& vp = camera.GetViewProjectionMatrix();
         ubo.SetData(reinterpret_cast<const void*>(&vp), sizeof(viewProjectionMatrix), 0);
 
-        s.Use();
-        s.SetUniform("lightPos", glm::vec3(0.0f, 15.0f, 10.0f));
-        s.SetUniform("cameraPos", camera.GetPosition());
+        s->Use();
+        s->SetUniform("lightPos", glm::vec3(0.0f, 15.0f, 10.0f));
+        s->SetUniform("cameraPos", camera.GetPosition());
 
         transform.RotateY(0.25f);
-        s.SetUniform("model", transform.GetTransformationMatrix());
+        s->SetUniform("model", transform.GetTransformationMatrix());
         dragon.Draw(r);
 
         grid.Draw(r);
