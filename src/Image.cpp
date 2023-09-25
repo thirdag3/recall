@@ -3,7 +3,7 @@
 
 Image::Image(const std::string& path) : m_width(0), m_height(0), m_channels(0), m_data(nullptr)
 {
-    stbi_set_flip_vertically_on_load(true);
+    // stbi_set_flip_vertically_on_load(true);
     m_data = stbi_load(path.c_str(), &m_width, &m_height, &m_channels, 0);
 }
 
@@ -18,7 +18,7 @@ Image::Image(int width, int height, int channels, unsigned char* data)
     }
     else
     {
-        size_t dataSize = width * height * channels * sizeof(unsigned char);
+        size_t dataSize = width * height * channels;
         m_data = new unsigned char[dataSize];
         std::memcpy(m_data, data, dataSize);
     }

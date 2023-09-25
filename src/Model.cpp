@@ -1,14 +1,15 @@
 #include "Model.hpp"
 
 #include <memory>
+#include <filesystem>
 
 #include <glm/glm.hpp>
 
+#include "ShaderLibrary.hpp"
 #include "Texture.hpp"
 #include "Vertex.hpp"
-#include "ShaderLibrary.hpp"
 
-Model::Model(const std::string& modelFile)
+Model::Model(const std::string& modelFile) : m_path(modelFile)
 {
     Assimp::Importer importer;
     const aiScene* scene =
@@ -64,13 +65,13 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         }
     }
 
-    if (mesh->mMaterialIndex >= 0)
-    {
+    if (mesh->mMaterialIndex >= 0) {
         auto& material = scene->mMaterials[mesh->mMaterialIndex];
         diffuseTextures = LoadTexturesFromMaterial(material, aiTextureType_DIFFUSE, scene);
     }
 
-    std::shared_ptr<Material> meshMaterial = std::make_shared<Material>(ShaderLibrary::GetStandardPhong(), std::move(diffuseTextures[0]));
+    std::shared_ptr<Material> meshMaterial =
+        std::make_shared<Material>(ShaderLibrary::GetStandardPhong(), std::move(diffuseTextures[0]));
 
     BufferLayout layout;
     layout.PushAttribute<glm::vec3>();
@@ -102,6 +103,17 @@ std::vector<Texture> Model::LoadTexturesFromMaterial(aiMaterial* material, aiTex
     if (auto assimpTexture = scene->GetEmbeddedTexture(textureFile.C_Str())) {
         Image image(static_cast<int>(assimpTexture->mWidth), static_cast<int>(assimpTexture->mHeight), 0,
             reinterpret_cast<unsigned char*>(assimpTexture->pcData));
+
+        Texture texture(image);
+        textures.push_back(std::move(texture));
+    }
+    else {
+        std::filesystem::path modelPath(m_path);
+        auto parentPath = modelPath.parent_path();
+        std::filesystem::path texturePath(textureFile.C_Str());
+
+        auto imagePath = parentPath / texturePath;
+        Image image(imagePath.string());
 
         Texture texture(image);
         textures.push_back(std::move(texture));

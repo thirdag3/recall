@@ -48,12 +48,16 @@ int main(int argc, const char** argv)
         }
     });
 
-    Transform transform;
-    transform.SetScale(glm::vec3(0.025f));
+    Transform sponzaTransform;
+    sponzaTransform.SetScale(glm::vec3(0.015f));
+
+    Transform foxTransform;
+    foxTransform.SetScale(glm::vec3(0.025f));
 
     DebugGraphicsGrid grid(50, glm::vec4(0.5f, 0.5f, 0.5f, 1.0f));
 
-    Model dragon("Assets/Models/Fox.glb");
+    Model sponza("Assets/Models/Sponza.glb");
+    Model fox("Assets/Models/Fox.glb");
 
     while (!w.ShouldClose()) {
         r.Clear({ 0.15f, 0.15f, 0.15f, 1.0f });
@@ -67,9 +71,12 @@ int main(int argc, const char** argv)
         s->SetUniform("lightPos", glm::vec3(0.0f, 15.0f, 10.0f));
         s->SetUniform("cameraPos", camera.GetPosition());
 
-        transform.RotateY(0.25f);
-        s->SetUniform("model", transform.GetTransformationMatrix());
-        dragon.Draw(r);
+        s->SetUniform("model", sponzaTransform.GetTransformationMatrix());
+        sponza.Draw(r);
+
+        foxTransform.RotateY(0.25f);
+        s->SetUniform("model", foxTransform.GetTransformationMatrix());
+        fox.Draw(r);
 
         grid.Draw(r);
 

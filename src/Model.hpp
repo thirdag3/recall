@@ -22,4 +22,5 @@ class Model
     Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
     std::vector<Texture> LoadTexturesFromMaterial(aiMaterial* material, aiTextureType type, const aiScene* scene);
     std::vector<Mesh> m_meshes;
+    std::string m_path;
 };

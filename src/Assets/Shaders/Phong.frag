@@ -26,6 +26,10 @@ void main()
 {
     //vec3 objectColor = vec3(0.8f, 0.0f, 0.5f);
 
+    if (texture(texture_diffuse, uv).a <= 0.1) {
+        discard;
+    }
+
     vec3 objectColor = texture(texture_diffuse, uv).rgb;
 
     vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
