@@ -1,4 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
+
+#include <cstring>
+
 #include "Image.hpp"
 
 Image::Image(const std::string& path) : m_width(0), m_height(0), m_channels(0), m_data(nullptr)

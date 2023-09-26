@@ -23,7 +23,8 @@ project "Recall"
     }
 
     filter "system:linux"
-        links { "glfw", "glad", "imgui", "GL", "rt", "m", "dl", "X11", "pthread", "assimp" }
+        libdirs { "../external/assimp/build/contrib/zlib" }
+        links { "glfw", "glad", "imgui", "GL", "rt", "m", "dl", "X11", "pthread", "zlibstatic", "assimp" }
 
     filter "system:windows"
         links { "glfw", "glad", "imgui", "opengl32", "assimp"}
